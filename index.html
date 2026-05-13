@@ -79,24 +79,24 @@
 
     <script>
 
-        // LISTA DE CASOS DESDE CSV
         let casos = [];
 
-        // LEER ARCHIVO CSV
+        // LEER CSV
         fetch("casos.csv")
 
         .then(response => response.text())
 
         .then(data => {
 
-            let lineas = data.split("\n");
+            // DIVIDIR POR LÍNEAS
+            let lineas = data.split(/\r?\n/);
 
-            // EMPIEZA EN 1 PARA IGNORAR CABECERA
+            // RECORRER
             for(let i = 1; i < lineas.length; i++){
 
                 let caso = lineas[i].trim();
 
-                if(caso !== ""){
+                if(caso.length > 0){
 
                     casos.push(caso);
 
@@ -104,17 +104,11 @@
 
             }
 
-            console.log("Casos cargados:", casos);
-
-        })
-
-        .catch(error => {
-
-            console.error("Error leyendo CSV:", error);
+            console.log(casos);
 
         });
 
-        // VALIDAR CASO
+        // VALIDAR
         function validarCaso(){
 
             let casoIngresado = document
