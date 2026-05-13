@@ -70,31 +70,47 @@
 
     <script>
 
-        // LISTA TEMPORAL DE CASOS
-        const casos = ["1001","1002","1003","2000"];
+let casos = [];
 
-        function validarCaso(){
+fetch("casos.csv")
+.then(response => response.text())
+.then(data => {
 
-            let casoIngresado = document.getElementById("caso").value;
+    let lineas = data.split("\n");
 
-            let resultado = document.getElementById("resultado");
+    for(let i=1; i<lineas.length; i++){
 
-            if(casos.includes(casoIngresado)){
+        let caso = lineas[i].trim();
 
-                resultado.innerHTML = "✅ Caso encontrado";
-
-                resultado.style.color = "green";
-
-            }else{
-
-                resultado.innerHTML = "❌ Caso no encontrado";
-
-                resultado.style.color = "red";
-
-            }
-
+        if(caso !== ""){
+            casos.push(caso);
         }
 
+    }
+
+});
+
+function validarCaso(){
+
+    let casoIngresado = document.getElementById("caso").value.trim();
+
+    let resultado = document.getElementById("resultado");
+
+    if(casos.includes(casoIngresado)){
+
+        resultado.innerHTML = "✅ Caso encontrado";
+
+        resultado.style.color = "green";
+
+    }else{
+
+        resultado.innerHTML = "❌ Caso no encontrado";
+
+        resultado.style.color = "red";
+
+    }
+
+}
     </script>
 
 </body>
