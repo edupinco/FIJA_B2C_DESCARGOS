@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Casos</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background:#f5f5f5;
+            text-align:center;
+            padding-top:100px;
+        }
+
+        .contenedor{
+            background:white;
+            width:400px;
+            margin:auto;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        input{
+            width:90%;
+            padding:12px;
+            margin-top:20px;
+            font-size:18px;
+        }
+
+        button{
+            margin-top:20px;
+            padding:12px 20px;
+            background:#0078D4;
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        #resultado{
+            margin-top:20px;
+            font-size:18px;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1>Validación de Caso</h1>
+
+        <input type="text" id="caso" placeholder="Ingrese número de caso">
+
+        <br>
+
+        <button onclick="validarCaso()">
+            Validar Caso
+        </button>
+
+        <div id="resultado"></div>
+
+    </div>
+
+    <script>
+
+        // LISTA TEMPORAL DE CASOS
+        const casos = ["1001","1002","1003","2000"];
+
+        function validarCaso(){
+
+            let casoIngresado = document.getElementById("caso").value;
+
+            let resultado = document.getElementById("resultado");
+
+            if(casos.includes(casoIngresado)){
+
+                resultado.innerHTML = "✅ Caso encontrado";
+
+                resultado.style.color = "green";
+
+            }else{
+
+                resultado.innerHTML = "❌ Caso no encontrado";
+
+                resultado.style.color = "red";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
