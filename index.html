@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Portal de Casos</title>
 
     <style>
@@ -50,13 +54,18 @@
     </style>
 
 </head>
+
 <body>
 
     <div class="contenedor">
 
         <h1>Validación de Caso</h1>
 
-        <input type="text" id="caso" placeholder="Ingrese número de caso">
+        <input 
+            type="text" 
+            id="caso" 
+            placeholder="Ingrese número de caso"
+        >
 
         <br>
 
@@ -70,48 +79,70 @@
 
     <script>
 
-let casos = [];
+        // LISTA DE CASOS DESDE CSV
+        let casos = [];
 
-fetch("casos.csv")
-.then(response => response.text())
-.then(data => {
+        // LEER ARCHIVO CSV
+        fetch("casos.csv")
 
-    let lineas = data.split("\n");
+        .then(response => response.text())
 
-    for(let i=1; i<lineas.length; i++){
+        .then(data => {
 
-        let caso = lineas[i].trim();
+            let lineas = data.split("\n");
 
-        if(caso !== ""){
-            casos.push(caso);
+            // EMPIEZA EN 1 PARA IGNORAR CABECERA
+            for(let i = 1; i < lineas.length; i++){
+
+                let caso = lineas[i].trim();
+
+                if(caso !== ""){
+
+                    casos.push(caso);
+
+                }
+
+            }
+
+            console.log("Casos cargados:", casos);
+
+        })
+
+        .catch(error => {
+
+            console.error("Error leyendo CSV:", error);
+
+        });
+
+        // VALIDAR CASO
+        function validarCaso(){
+
+            let casoIngresado = document
+                .getElementById("caso")
+                .value
+                .trim();
+
+            let resultado = document
+                .getElementById("resultado");
+
+            if(casos.includes(casoIngresado)){
+
+                resultado.innerHTML = "✅ Caso encontrado";
+
+                resultado.style.color = "green";
+
+            }else{
+
+                resultado.innerHTML = "❌ Caso no encontrado";
+
+                resultado.style.color = "red";
+
+            }
+
         }
 
-    }
-
-});
-
-function validarCaso(){
-
-    let casoIngresado = document.getElementById("caso").value.trim();
-
-    let resultado = document.getElementById("resultado");
-
-    if(casos.includes(casoIngresado)){
-
-        resultado.innerHTML = "✅ Caso encontrado";
-
-        resultado.style.color = "green";
-
-    }else{
-
-        resultado.innerHTML = "❌ Caso no encontrado";
-
-        resultado.style.color = "red";
-
-    }
-
-}
     </script>
 
 </body>
+
 </html>
