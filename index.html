@@ -51,6 +51,10 @@
             font-weight:bold;
         }
 
+        #subir{
+            display:none;
+        }
+
     </style>
 
 </head>
@@ -75,23 +79,27 @@
 
         <div id="resultado"></div>
 
+        <button 
+            id="subir"
+            onclick="subirArchivo()"
+        >
+            Subir Documentos
+        </button>
+
     </div>
 
     <script>
 
         let casos = [];
 
-        // LEER CSV
         fetch("./CASOS.csv?v=" + new Date().getTime())
 
         .then(response => response.text())
 
         .then(data => {
 
-            // DIVIDIR POR LÍNEAS
             let lineas = data.split(/\r?\n/);
 
-            // RECORRER
             for(let i = 1; i < lineas.length; i++){
 
                 let caso = lineas[i].trim();
@@ -104,11 +112,8 @@
 
             }
 
-            console.log(casos);
-
         });
 
-        // VALIDAR
         function validarCaso(){
 
             let casoIngresado = document
@@ -119,11 +124,16 @@
             let resultado = document
                 .getElementById("resultado");
 
+            let botonSubir = document
+                .getElementById("subir");
+
             if(casos.includes(casoIngresado)){
 
                 resultado.innerHTML = "✅ Caso encontrado";
 
                 resultado.style.color = "green";
+
+                botonSubir.style.display = "inline-block";
 
             }else{
 
@@ -131,7 +141,18 @@
 
                 resultado.style.color = "red";
 
+                botonSubir.style.display = "none";
+
             }
+
+        }
+
+        function subirArchivo(){
+
+            window.open(
+                "https://integratelcorp-my.sharepoint.com/:f:/r/personal/eduardo_pinco_integratel_com_pe/Documents/PRUEBA_1001?csf=1&web=1&e=cOuNi6",
+                "_blank"
+            );
 
         }
 
